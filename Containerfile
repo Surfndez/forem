@@ -44,6 +44,7 @@ COPY ./vendor/cache "${APP_HOME}"/vendor/cache
 RUN if [ "$RAILS_ENV" != "test" ] ; then bundle config build.sassc --disable-march-tune-native ; fi
 
 RUN bundle check || bundle install --jobs 20 --retry 5
+echo $(date --utc +%FT%T%Z) > /opt/apps/bundle/bundle_finished
 
 COPY ./package.json ./yarn.lock ./.yarnrc "${APP_HOME}"
 COPY ./.yarn "${APP_HOME}"/.yarn
